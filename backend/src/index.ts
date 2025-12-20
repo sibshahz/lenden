@@ -1,11 +1,17 @@
 import express from "express";
 import userRouter from "./routes/user.route.js";
 import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
+import "dotenv/config";
+import balanceRouter from "./routes/balance.route.js";
 
 const app = express();
 
-app.use("/user", userRouter);
+app.use(express.json());
+app.use(cookieParser());
 
+app.use("/user", userRouter);
+app.use("/balance", balanceRouter);
 app.get("/", (req, res) => {
   res.send({
     message: "Server is up and running!!!",
@@ -14,9 +20,8 @@ app.get("/", (req, res) => {
 
 app.listen(8000, async () => {
   try {
-    await mongoose.connect(
-      "mongodb://user:password@127.0.0.1:27017/lendendb?authSource=admin"
-    );
+    await mongoose.connect(process.env.DATABASE_URL);
+    console.log("CONNECTED TO DB: ");
   } catch (error) {
     console.log("Error of connection is: ", error);
   }
