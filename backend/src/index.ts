@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cookieParser from "cookie-parser";
 import "dotenv/config";
 import balanceRouter from "./routes/balance.route.js";
+import transactionRouter from "./routes/transaction.route.js";
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(cookieParser());
 
 app.use("/user", userRouter);
 app.use("/balance", balanceRouter);
+app.use("/transaction", transactionRouter);
 app.get("/", (req, res) => {
   res.send({
     message: "Server is up and running!!!",
