@@ -21,11 +21,12 @@ app.get("/", (req, res) => {
 });
 
 app.listen(8000, async () => {
+
   try {
     await mongoose.connect(process.env.DATABASE_URL);
     console.log("CONNECTED TO DB: ");
   } catch (error) {
     console.log("Error of connection is: ", error);
   }
-  console.log("Server is runnign at port 8000");
+  console.log("Server is running at port 8000");
 });
